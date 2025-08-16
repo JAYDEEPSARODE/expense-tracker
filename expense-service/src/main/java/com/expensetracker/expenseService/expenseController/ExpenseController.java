@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/expenses")
@@ -25,5 +22,11 @@ public class ExpenseController {
         String endPoint = "/addExpense";
         Object response = expenseService.addExpense(request);
         return new ResponseEntity<>(ResponseBuilder.buildSuccessResponse(response, endPoint), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/getExpenses/{userEmail}")
+    public ResponseEntity<ResponseDTO> getExpenseDetails(HttpServletRequest httpServletRequest,@PathVariable("userEmail")  String userEmail){
+        String endPoint = "/getExpenses";
+        return new ResponseEntity<>(ResponseBuilder.buildSuccessResponse(expenseService.getExpenseDetails(userEmail),endPoint),HttpStatusCode.valueOf(200));
     }
 }
