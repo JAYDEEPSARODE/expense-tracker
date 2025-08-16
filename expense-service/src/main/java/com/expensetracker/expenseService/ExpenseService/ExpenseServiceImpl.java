@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -50,6 +51,15 @@ public class ExpenseServiceImpl implements ExpenseService{
 
         if (request.getAmount() <= 0) {
             throw new BadRequestException("Amount must be greater than zero");
+        }
+    }
+
+    @SneakyThrows
+    public List<ExpenseEntity> getExpenseDetails(String userEmailId){
+        try{
+            return userRepository.getExpenseDetails(userEmailId);
+        }catch (Exception e){
+            throw new BadRequestException(e.getMessage());
         }
     }
 }

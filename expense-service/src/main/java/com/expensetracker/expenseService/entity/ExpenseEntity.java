@@ -13,7 +13,7 @@ public class ExpenseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_expenses_seq")
     @SequenceGenerator(name = "user_expenses_seq", sequenceName = "USER_EXPENSES_SEQ", allocationSize = 1)
     @Column(name = "EXPENSE_ID")
-    private Long expenseid;
+    private Long expenseId;
 
     @Column(name = "USER_ID", nullable = false)
     private Long userId;
