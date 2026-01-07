@@ -16,7 +16,13 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("SELECT u.id FROM User u WHERE u.email = :email")
     String getIdByEmail(@Param("email") String email);
 
-    String GET_EXPENSE_DETAILS = "SELECT e FROM ExpenseEntity e WHERE e.userId = (SELECT u.id FROM User u WHERE u.email = :email)";
+    @Query("SELECT u.email FROM User u WHERE u.id = :userId")
+    String getEmailById(@Param("userId") Long userId);
+
+    String GET_EXPENSE_DETAILS = "SELECT e FROM ExpenseEntity e " +
+            "WHERE e.userId = " +
+            "(SELECT u.id FROM User u " +
+            "WHERE u.email = :email)";
     @Query(GET_EXPENSE_DETAILS)
     List<ExpenseEntity> getExpenseDetails(@Param("email") String email);
 }
